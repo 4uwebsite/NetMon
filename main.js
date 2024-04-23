@@ -7,36 +7,79 @@ let notificattionStatus = {
     con: false,
     dis: false
 }
-let btnElm = document.querySelector("button")
+// let btnElm = document.querySelector("button")
+let btnElm
 
-// Request permission for notifications
-Notification.requestPermission().then(function (result) {
-    let h4Elm = document.querySelector("h4")
-    h4Elm.innerText = `Notifications: ${result}`
-    if (result === 'granted') {
-        console.log('Notification permission granted.');
+// Device Type Detecttion 
+const deviceType = {
+    MOBILE: 'mobile',
+    TABLET: 'tablet',
+    DESKTOP: 'desktop'
+}
+
+function detectDeviceType() {
+const userAgent = navigator.userAgent
+
+    if (/Mobi/.test(userAgent)) {
+        return deviceType.MOBILE
+    } else if (/Tablet|iPad/i.test(userAgent)) {
+        return deviceType.TABLET
     } else {
-        console.log('Notification permission denied.');
+        return deviceType.DESKTOP
     }
-});
+}
 
-setInterval(function() {
-    // Code runs each time as per duration set.
+const device = detectDeviceType()
+
+if (device != "desktop"){
+    // document.querySelector("div").innerText = "The NetMon app is designed to only run on Desktop/Laptop computers."
+    let divElm = document.querySelector("div")
+    divElm.innerHTML = ""
+    let imgElm = document.createElement("img")
+    imgElm.src = "./no-phone.png"
+    let pElm = document.createElement("p")
+    pElm.innerText = "The NetMon app is designed to only run on Desktop/Laptop computers."
+    divElm.appendChild(imgElm)
+    divElm.appendChild(pElm)
+}
+else if(device === "desktop"){
+    btnElm = document.querySelector("button")
     
-    let currentTime = new Date()
-    currentTime = `${currentTime.getHours()}h ${currentTime.getMinutes()}m ${currentTime.getSeconds()}s`
-    const eventObj = {
-        conStat: navigator.onLine,
-        time: currentTime,
-        session: session,
-        connData: getNavConString()
-    }
+    // Request permission for notifications
+    Notification.requestPermission().then(function (result) {
+        let h4Elm = document.querySelector("h4")
+        h4Elm.innerText = `Notifications: ${result}`
+        if (result === 'granted') {
+            console.log('Notification permission granted.');
+        } else {
+            console.log('Notification permission denied.');
+        }
+    });
 
-    eventsArr.push(eventObj)
+    setInterval(function() {
+        // Code runs each time as per duration set.
+        
+        let currentTime = new Date()
+        currentTime = `${currentTime.getHours()}h ${currentTime.getMinutes()}m ${currentTime.getSeconds()}s`
+        const eventObj = {
+            conStat: navigator.onLine,
+            time: currentTime,
+            session: session,
+            connData: getNavConString()
+        }
+    
+        eventsArr.push(eventObj)
+    
+        updateUI(eventObj)
+    
+    }, 1000)
 
-    updateUI(eventObj)
-
-}, 1000)
+    btnElm.addEventListener("click", function(){
+        let csvString = CSVConverter.arrayToCSV(eventsArr)
+        let filename = `Log_${session.getFullYear()}-${session.getMonth() + 1}-${session.getDate()}_${Date.now()}`
+        CSVDownloader.downloadCSV(csvString, filename)
+    })
+}
 
 function updateUI(event){
     let bodyElm = document.querySelector("body")
@@ -120,11 +163,11 @@ function formatTime(time){
     };
 }
 
-btnElm.addEventListener("click", function(){
-    let csvString = CSVConverter.arrayToCSV(eventsArr)
-    let filename = `Log_${session.getFullYear()}-${session.getMonth() + 1}-${session.getDate()}_${Date.now()}`
-    CSVDownloader.downloadCSV(csvString, filename)
-})
+// btnElm.addEventListener("click", function(){
+//     let csvString = CSVConverter.arrayToCSV(eventsArr)
+//     let filename = `Log_${session.getFullYear()}-${session.getMonth() + 1}-${session.getDate()}_${Date.now()}`
+//     CSVDownloader.downloadCSV(csvString, filename)
+// })
 
 // Function to show notification
 function showNotification() {
@@ -160,3 +203,4 @@ function getNavConString(){
     let connData = `connType: ${connType} | downlink: ${downlink}mbps | rtt: ${rtt}ms`
     return connData
 }
+

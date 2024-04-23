@@ -1,0 +1,16 @@
+Interface Design
+Code Interface
+Code functionality 
+Test-Refactor-Test cycle
+Document
+Versioning
+Package
+Deploy
+
+
+NEXT: Notifications
+Format Notification
+https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
+https://www.youtube.com/watch?v=Bm0JjR4kP8w&t=131s
+
+let filename = `Log for ${session.getFullYear()}${session.getMonth()}${session.getDay()}-${Date.now()}`

@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    transition: 0.4s;
+}
+
+body{
+    text-align: center;
+    background-color: #ccc;
+}
+
+#main-container{
+    margin-top: 30vh;
+}
+
+button{
+    border: 0.1em solid black;
+    padding: 0.5em 0.8em;
+    border-radius: 0.5em;
+    background-color: #333;
+    color: white;
+    font-size: 0.6rem;
+    cursor: pointer;
+}
+button:hover{
+    background-color: black;
+}
+
+h3{
+    margin: 1.3em auto;
+    font-size: 0.7rem;
+    max-width: 12em;
+}
+
+h4{
+    margin: 0.5em 0;
+    font-size: 0.5rem;
+}

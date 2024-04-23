@@ -28,7 +28,8 @@ setInterval(function() {
     const eventObj = {
         conStat: navigator.onLine,
         time: currentTime,
-        session: session
+        session: session,
+        connData: getNavConString()
     }
 
     eventsArr.push(eventObj)
@@ -40,23 +41,29 @@ setInterval(function() {
 function updateUI(event){
     let bodyElm = document.querySelector("body")
     let h1Elm = document.querySelector("h1")
-    let h2Elm = document.querySelector("h2")
+    let connStatElm = document.getElementById("connStat")
+    // let h2Elm = document.querySelector("h2")
     let h3Elm = document.querySelector("h3")
+    let imgElm = document.querySelector("img")
     h3Elm.innerText = event.session
     // let btnElm = document.querySelector("button")
     btnElm.innerText = `EXPORT LOG (${eventsArr.length} entries)`
+    document.querySelector("h5").innerText = event.connData
 
     if (event.conStat === true){
-        h1Elm.innerText = "CONNECTED"
+        // h1Elm.innerText = "CONNECTED"
+        connStatElm.innerText = "CONNECTED"
         h1Elm.style.color = "white"
         bodyElm.style.backgroundColor = "green"
+        imgElm.src = "./connected.png"
         
         if (connecttionState != "connected"){
             connecttionState = "connected"
             lastConnected = new Date()
         }
         timeElapsed = formatTime(new Date() - lastConnected)
-        h2Elm.innerText = `${timeElapsed.hours}h ${timeElapsed.minutes}m ${timeElapsed.seconds}s`
+        // h2Elm.innerText = `${timeElapsed.hours}h ${timeElapsed.minutes}m ${timeElapsed.seconds}s`
+        updateTimeElapsed()
 
         if (!notificattionStatus.con){
             notificattionStatus.con = true
@@ -65,23 +72,36 @@ function updateUI(event){
         }
     }
     else{
-        h1Elm.innerText = "DISCONNECTED"
+        // h1Elm.innerText = "DISCONNECTED"
+        connStatElm.innerText = "DISCONNECTED"
         h1Elm.style.color = "white"
         bodyElm.style.backgroundColor = "red"
+        imgElm.src = "./disconnected.png"
 
         if (connecttionState != "disconnected"){
             connecttionState = "disconnected"
             lastDisconnected = new Date()
         }
         timeElapsed = formatTime(new Date() - lastDisconnected)
-        h2Elm.innerText = `${timeElapsed.hours}h ${timeElapsed.minutes}m ${timeElapsed.seconds}s`
-        
+        // h2Elm.innerText = `${timeElapsed.hours}<span class="tLabel">h</span> ${timeElapsed.minutes}<span class="tLabel">m</span> ${timeElapsed.seconds}<span class="tLabel">s</span>`
+        updateTimeElapsed()
+
         if (!notificattionStatus.dis){
             notificattionStatus.dis = true
             notificattionStatus.con = false
             showNotification()
         }
     }
+}
+
+function updateTimeElapsed(){
+    let hrsElm = document.getElementById("hrs")
+    let minElm = document.getElementById("min")
+    let secElm = document.getElementById("sec")
+
+    hrsElm.innerText = timeElapsed.hours
+    minElm.innerText = timeElapsed.minutes
+    secElm.innerText = timeElapsed.seconds
 }
 
 function formatTime(time){
@@ -126,4 +146,14 @@ function iconSwitcher(){
     else if (connecttionState === "disconnected"){
         return "./disconnected.png"
     }
+}
+
+// Return navigator.connection data as a string 
+// connType: 2g | downlink: 0.4mbps | rtt: 2050ms
+function getNavConString(){
+    let connType = navigator.connection.effectiveType
+    let downlink = navigator.connection.downlink
+    let rtt = navigator.connection.rtt
+    let connData = `connType: ${connType} | downlink: ${downlink}mbps | rtt: ${rtt}ms`
+    return connData
 }

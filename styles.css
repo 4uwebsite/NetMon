@@ -16,6 +16,12 @@ body{
     margin-top: 30vh;
 }
 
+.tLabel{
+    color: #333333cf;
+    font-size: 0.8rem;
+    margin: 0 0.5em 0 0;
+}
+
 button{
     border: 0.1em solid black;
     padding: 0.5em 0.8em;
@@ -29,13 +35,26 @@ button:hover{
     background-color: black;
 }
 
+#connType, #connStat{
+    color: white;
+}
+
 h3{
-    margin: 1.3em auto;
+    margin: 2em auto 1em auto;
     font-size: 0.7rem;
     max-width: 12em;
 }
 
 h4{
     margin: 0.5em 0;
+    font-size: 0.8rem;
+}
+
+img{
+    width: 5em;
+    margin: 1.2em auto;
+}
+
+h5{
     font-size: 0.5rem;
 }

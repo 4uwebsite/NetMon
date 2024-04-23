@@ -8,7 +8,7 @@ Package
 Deploy
 
 
-NEXT: UI/UX
+NEXT: Test-Refactor-Test cycle
 
 
 

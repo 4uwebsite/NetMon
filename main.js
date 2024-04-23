@@ -99,7 +99,7 @@ function formatTime(time){
 
 btnElm.addEventListener("click", function(){
     let csvString = CSVConverter.arrayToCSV(eventsArr)
-    let filename = `Log for ${session.getFullYear()}${session.getMonth()}${session.getDay()}-${Date.now()}`
+    let filename = `Log_${session.getFullYear()}-${session.getMonth() + 1}-${session.getDate()}_${Date.now()}`
     CSVDownloader.downloadCSV(csvString, filename)
 })
 

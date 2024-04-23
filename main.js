@@ -48,13 +48,16 @@ function updateUI(event){
     h3Elm.innerText = event.session
     // let btnElm = document.querySelector("button")
     btnElm.innerText = `EXPORT LOG (${eventsArr.length} entries)`
-    document.querySelector("h5").innerText = event.connData
+    // document.querySelector("h5").innerText = event.connData
+    document.querySelector("h5").style.display = "none"
 
     if (event.conStat === true){
         // h1Elm.innerText = "CONNECTED"
         connStatElm.innerText = "CONNECTED"
         h1Elm.style.color = "white"
         bodyElm.style.backgroundColor = "green"
+        document.querySelector("h5").innerText = event.connData
+        document.querySelector("h5").style.display = "block"
         imgElm.src = "./connected.png"
         
         if (connecttionState != "connected"){

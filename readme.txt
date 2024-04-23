@@ -1,5 +1,5 @@
 Project Codename: NetMon
-Current Version: 1.202404231853
+Current Version: 1.202404231913
 Description: Monitor the internet connectivity while logging it.
 
 Features:
@@ -17,3 +17,7 @@ Features:
         }
 - Log Export.
 - Notifications.
+
+
+Version 1.202404231913:
+BugFix - Hide connData element when disconnected.

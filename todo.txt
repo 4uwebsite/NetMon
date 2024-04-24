@@ -8,7 +8,7 @@ Package
 Deploy
 
 
-NEXT: Test-Refactor-Test cycle
+NEXT: ver 2 with W4U branding.
 
 
 

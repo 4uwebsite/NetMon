@@ -18,8 +18,10 @@ Features:
 - Log Export.
 - Notifications.
 - Disable when not desktop.
+- Favicon & Title should reflect connection state.
 
 
 Version 1.202404231913:
 BugFix - Hide connData element when disconnected.
 Feature added - Disable when not desktop.
+Favicon.

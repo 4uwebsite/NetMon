@@ -18,13 +18,15 @@ const deviceType = {
 }
 
 function detectDeviceType() {
-const userAgent = navigator.userAgent
+    const userAgent = navigator.userAgent
 
     if (/Mobi/.test(userAgent)) {
         return deviceType.MOBILE
-    } else if (/Tablet|iPad/i.test(userAgent)) {
+    } 
+    else if (/Tablet|iPad/i.test(userAgent)) {
         return deviceType.TABLET
-    } else {
+    } 
+    else {
         return deviceType.DESKTOP
     }
 }
@@ -82,6 +84,7 @@ else if(device === "desktop"){
 }
 
 function updateUI(event){
+    updateTitleFav(event)
     let bodyElm = document.querySelector("body")
     let h1Elm = document.querySelector("h1")
     let connStatElm = document.getElementById("connStat")
@@ -204,3 +207,17 @@ function getNavConString(){
     return connData
 }
 
+// Change the Favicon and Title to reflect connectivity. 
+function updateTitleFav(event){
+    let faviconElm = document.getElementById("favicon")
+    let pageTitleElm = document.getElementById("page-title")
+
+    if (event.conStat){
+        faviconElm.href = "./favicon.ico"
+        pageTitleElm.innerText = "CONNECTED - NetMon"
+    }
+    else{
+        faviconElm.href = "./faviconDC.ico"
+        pageTitleElm.innerText = "DISCONNECTED - NetMon"
+    }
+}
